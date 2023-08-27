@@ -11,13 +11,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Spring6RestMvcApplication {
 
 	public static void main(String[] args) {
-//		SpringApplication.run(Spring6RestMvcApplication.class, args);
-		BeerService impl = new BeerServiceImpl();
-		Beer beer = impl.getBeerId(UUID.randomUUID());
-		if (beer == impl.getBeerId(UUID.randomUUID())) {
-			System.out.println("something is wrong");
-		}
-		System.out.println(beer.toString());
+		SpringApplication.run(Spring6RestMvcApplication.class, args);
+//		BeerService impl = new BeerServiceImpl();
+//		Beer beer = impl.getBeerId(UUID.randomUUID());
+//		if (beer == impl.getBeerId(UUID.randomUUID())) {
+//			System.out.println("something is wrong");
+//		}
+//		System.out.println(beer.toString());
 	}
 
 
