@@ -13,9 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,12 +33,17 @@ public class BeerController {
         return beerService.listBeers();
     }
 
+    @PutMapping("{beerId}")
+    public ResponseEntity<String> updateById(@PathVariable("beerId") UUID id, @RequestBody Beer beer){
+        beerService.updateById(id, beer);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
     @PostMapping
 //    @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<String> handlePost(@RequestBody Beer beer) {
         Beer savedBeer = beerService.addBeer(beer);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/api/vi/beer/"+savedBeer.id());
+        headers.add("Location", "/api/vi/beer/"+savedBeer.getId());
 
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
