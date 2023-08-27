@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Slf4j
 @Service
@@ -112,5 +113,24 @@ public class BeerServiceImpl implements BeerService {
         existingBeer.setUpdateDate(LocalDateTime.now());
         existingBeer.setVersion(existingBeer.getVersion()+1);
         existingBeer.setQuantityOnHand(beer.getQuantityOnHand());
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        beerMap.remove(id);
+    }
+
+    @Override
+    public void updatePartialById(UUID id, Beer beer) {
+        // Only implementing name property, need to manually implement logic for all value udpates
+        int change=0;
+        Beer existingBeer = beerMap.get(id);
+        if (StringUtils.hasText(beer.getBeerName())) {
+            existingBeer.setBeerName(beer.getBeerName());
+            change++;
+        }
+        if (change > 0) {
+            existingBeer.setVersion(existingBeer.getVersion() + 1);
+        }
     }
 }
