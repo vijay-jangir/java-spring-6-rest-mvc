@@ -9,6 +9,6 @@ public interface BeerService {
 
     Beer getBeerId(UUID id);
 
-    void addBeer(Beer beer);
+    Beer addBeer(Beer beer);
 
 }

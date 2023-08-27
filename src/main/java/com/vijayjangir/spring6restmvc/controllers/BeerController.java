@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,8 +34,11 @@ public class BeerController {
     @PostMapping
 //    @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<String> handlePost(@RequestBody Beer beer) {
-        beerService.addBeer(beer);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Beer savedBeer = beerService.addBeer(beer);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "/api/vi/beer/"+savedBeer.id());
+
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value= "{beerId}", method=RequestMethod.GET)

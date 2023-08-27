@@ -84,7 +84,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public void addBeer(Beer beer) {
+    public Beer addBeer(Beer beer) {
         log.debug("beer entry recieved:" + beer.toString());
         Beer addBeer = Beer.builder()
             .id(UUID.randomUUID())
@@ -99,6 +99,6 @@ public class BeerServiceImpl implements BeerService {
             .build();
 
         beerMap.put(addBeer.id(), addBeer);
-
+        return addBeer;
     }
 }
