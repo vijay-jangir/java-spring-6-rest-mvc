@@ -8,4 +8,7 @@ public interface BeerService {
     List<Beer> listBeers();
 
     Beer getBeerId(UUID id);
+
+    void addBeer(Beer beer);
+
 }

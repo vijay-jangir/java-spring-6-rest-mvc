@@ -7,10 +7,15 @@ import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -23,6 +28,13 @@ public class BeerController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Beer> listBeer(){
         return beerService.listBeers();
+    }
+
+    @PostMapping
+//    @RequestMapping(method=RequestMethod.POST)
+    public ResponseEntity<String> handlePost(@RequestBody Beer beer) {
+        beerService.addBeer(beer);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value= "{beerId}", method=RequestMethod.GET)

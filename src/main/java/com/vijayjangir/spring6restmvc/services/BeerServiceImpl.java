@@ -82,4 +82,23 @@ public class BeerServiceImpl implements BeerService {
             .updateDate(LocalDateTime.now())
             .build();
     }
+
+    @Override
+    public void addBeer(Beer beer) {
+        log.debug("beer entry recieved:" + beer.toString());
+        Beer addBeer = Beer.builder()
+            .id(UUID.randomUUID())
+            .createdDate(LocalDateTime.now())
+            .updateDate(LocalDateTime.now())
+            .version(1)
+            .price(beer.price())
+            .beerName(beer.beerName())
+            .beerStyle(beer.beerStyle())
+            .quantityOnHand(444)
+            .upc(beer.upc())
+            .build();
+
+        beerMap.put(addBeer.id(), addBeer);
+
+    }
 }
